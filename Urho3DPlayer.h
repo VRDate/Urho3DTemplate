@@ -53,7 +53,7 @@ public:
     /// Cleanup after the main loop. Run the script's stop function if it exists.
     virtual void Stop();
 
-    AppStateInterface* appState_;
+    Vector<AppStateInterface*> appStates_;
     float timeStep_;
     Input* input_;
     SharedPtr<Viewport> viewport_;
@@ -61,8 +61,6 @@ public:
     SharedPtr<Node> cameraNode_;
 
 private:
-    /// Construct a new Text instance, containing the 'Hello World' String, and add it to the UI root element.
-    void CreateText();
     /// Subscribe to application-wide logic update events.
     void SubscribeToEvents();
     /// Handle the logic update event.

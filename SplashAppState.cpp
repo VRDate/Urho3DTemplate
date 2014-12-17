@@ -31,7 +31,9 @@ SplashAppState::SplashAppState(Urho3DPlayer* main)
 	// TODO Auto-generated constructor stub
 
 	main_ = main;
+	elapsedTime_ = 0.0f;
 
+	Splash();
 }
 
 SplashAppState::~SplashAppState()
@@ -41,7 +43,17 @@ SplashAppState::~SplashAppState()
 
 void SplashAppState::Loop(float timeStep)
 {
-	LOGERRORF("loop");
+	//LOGERRORF("loop");
+	elapsedTime_ += timeStep;
+
+	if (elapsedTime_ >= 2.0f)
+	{
+		main_->scene_->RemoveAllChildren();
+		main_->scene_->RemoveAllComponents();
+		main_->GetSubsystem<UI>()->GetRoot()->RemoveAllChildren();
+		main_->appStates_.Remove(this);
+		delete this;
+	}
 }
 
 void SplashAppState::Splash()

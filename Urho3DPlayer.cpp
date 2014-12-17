@@ -61,36 +61,12 @@ void Urho3DPlayer::Start()
 	input_ = GetSubsystem<Input>();
 	input_->SetMouseVisible(true);
 	input_->SetTouchEmulation(true);
-	appState_ = new SplashAppState(this);
-	CreateText();
+	appStates_.Push(new SplashAppState(this));
 	SubscribeToEvents();
 }
 
 void Urho3DPlayer::Stop()
 {
-}
-
-
-void Urho3DPlayer::CreateText()
-{
-    ResourceCache* cache = GetSubsystem<ResourceCache>();
-
-    // Construct new Text object
-    SharedPtr<Text> helloText(new Text(context_));
-
-    // Set String to display
-    helloText->SetText("Hello World from Urho3D!");
-
-    // Set font and text color
-    helloText->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 30);
-    helloText->SetColor(Color(0.0f, 1.0f, 0.0f));
-
-    // Align Text center-screen
-    helloText->SetHorizontalAlignment(HA_CENTER);
-    helloText->SetVerticalAlignment(VA_CENTER);
-
-    // Add Text instance to the UI root element
-    GetSubsystem<UI>()->GetRoot()->AddChild(helloText);
 }
 
 void Urho3DPlayer::SubscribeToEvents()
@@ -104,5 +80,10 @@ void Urho3DPlayer::HandleUpdate(StringHash eventType, VariantMap& eventData)
 	using namespace Update;
 
 	timeStep_ = eventData[P_TIMESTEP].GetFloat();
-	appState_->Loop(timeStep_);
+
+	for (int x = 0; x < appStates_.Size(); x++)
+	{
+		AppStateInterface* appState = appStates_[x];
+		appState->Loop(timeStep_);
+	}
 }
