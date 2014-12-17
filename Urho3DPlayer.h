@@ -23,6 +23,17 @@
 #pragma once
 
 #include "Application.h"
+#include "AppStateInterface.h"
+#include "Input.h"
+#include "Viewport.h"
+
+namespace Urho3D
+{
+
+class Node;
+class Scene;
+
+}
 
 using namespace Urho3D;
 
@@ -41,6 +52,13 @@ public:
     virtual void Start();
     /// Cleanup after the main loop. Run the script's stop function if it exists.
     virtual void Stop();
+
+    AppStateInterface* appState_;
+    float timeStep_;
+    Input* input_;
+    SharedPtr<Viewport> viewport_;
+    SharedPtr<Scene> scene_;
+    SharedPtr<Node> cameraNode_;
 
 private:
     /// Construct a new Text instance, containing the 'Hello World' String, and add it to the UI root element.

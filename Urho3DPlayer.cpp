@@ -25,14 +25,18 @@
 #include "Font.h"
 #include "Graphics.h"
 #include "Input.h"
+#include "Log.h"
 #include "Main.h"
+#include "Node.h"
 #include "ProcessUtils.h"
+#include "Scene.h"
 #include "Text.h"
 #include "UI.h"
 #include "ResourceCache.h"
 #include "ResourceEvents.h"
 
 #include "Urho3DPlayer.h"
+#include "SplashAppState.h"
 
 #include "DebugNew.h"
 
@@ -53,9 +57,13 @@ void Urho3DPlayer::Setup()
 
 void Urho3DPlayer::Start()
 {
-	//Graphics* graphics = Urho3DPlayer::GetSubsystem<Graphics>();
-	//graphics->SetMode(800,480,false,false,false,true,false,false);
+	SetRandomSeed(GetSubsystem<Time>()->GetSystemTime());
+	input_ = GetSubsystem<Input>();
+	input_->SetMouseVisible(true);
+	input_->SetTouchEmulation(true);
+	appState_ = new SplashAppState(this);
 	CreateText();
+	SubscribeToEvents();
 }
 
 void Urho3DPlayer::Stop()
@@ -93,5 +101,8 @@ void Urho3DPlayer::SubscribeToEvents()
 
 void Urho3DPlayer::HandleUpdate(StringHash eventType, VariantMap& eventData)
 {
-    // Do nothing for now, could be extended to eg. animate the display
+	using namespace Update;
+
+	timeStep_ = eventData[P_TIMESTEP].GetFloat();
+	appState_->Loop(timeStep_);
 }
