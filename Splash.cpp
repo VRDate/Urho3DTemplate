@@ -1,15 +1,16 @@
 /*
- * SplashAppState.cpp
+ * Splash.cpp
  *
- *  Created on: Dec 14, 2014
+ *  Created on: Dec 24, 2014
  *      Author: practicing01
  */
 
+#include "CoreEvents.h"
 #include "Camera.h"
 #include "Engine.h"
 #include "Font.h"
 #include "Graphics.h"
-#include "Log.h"
+//#include "Log.h"
 #include "Node.h"
 #include "Octree.h"
 #include "Renderer.h"
@@ -21,28 +22,31 @@
 #include "UI.h"
 #include "Viewport.h"
 
-#include "SplashAppState.h"
-#include "Urho3DPlayer.h"
+#include "Splash.h"
+#include "Log.h"
 
 #include "DebugNew.h"
 
-SplashAppState::SplashAppState(Urho3DPlayer* main)
+Splash::Splash(Context* context, Urho3DPlayer* main) :
+    Object(context)
 {
-	// TODO Auto-generated constructor stub
-
 	main_ = main;
 	elapsedTime_ = 0.0f;
 
-	Splash();
+	SplashScreen();
+	SubscribeToEvent(E_UPDATE, HANDLER(Splash, HandleUpdate));
 }
 
-SplashAppState::~SplashAppState()
+Splash::~Splash()
 {
-	// TODO Auto-generated destructor stub
 }
 
-void SplashAppState::Loop(float timeStep)
+void Splash::HandleUpdate(StringHash eventType, VariantMap& eventData)
 {
+	using namespace Update;
+
+	float timeStep = eventData[P_TIMESTEP].GetFloat();
+
 	//LOGERRORF("loop");
 	elapsedTime_ += timeStep;
 
@@ -51,12 +55,12 @@ void SplashAppState::Loop(float timeStep)
 		main_->scene_->RemoveAllChildren();
 		main_->scene_->RemoveAllComponents();
 		main_->GetSubsystem<UI>()->GetRoot()->RemoveAllChildren();
-		main_->appStates_.Remove(this);
+		main_->logicStates_.Remove(this);
 		delete this;
 	}
 }
 
-void SplashAppState::Splash()
+void Splash::SplashScreen()
 {
 	main_->scene_ = new Scene(main_->GetContext());
 	main_->scene_->CreateComponent<Octree>();

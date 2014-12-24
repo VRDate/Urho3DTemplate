@@ -23,7 +23,6 @@
 #pragma once
 
 #include "Application.h"
-#include "AppStateInterface.h"
 #include "Input.h"
 #include "Viewport.h"
 
@@ -53,7 +52,7 @@ public:
     /// Cleanup after the main loop. Run the script's stop function if it exists.
     virtual void Stop();
 
-    Vector<AppStateInterface*> appStates_;
+    Vector<Object*> logicStates_;
     float timeStep_;
     Input* input_;
     SharedPtr<Viewport> viewport_;

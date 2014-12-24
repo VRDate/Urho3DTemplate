@@ -36,7 +36,7 @@
 #include "ResourceEvents.h"
 
 #include "Urho3DPlayer.h"
-#include "SplashAppState.h"
+#include "Splash.h"
 
 #include "DebugNew.h"
 
@@ -61,7 +61,7 @@ void Urho3DPlayer::Start()
 	input_ = GetSubsystem<Input>();
 	input_->SetMouseVisible(true);
 	input_->SetTouchEmulation(true);
-	appStates_.Push(new SplashAppState(this));
+	logicStates_.Push(new Splash(this->context_, this));
 	SubscribeToEvents();
 }
 
@@ -72,7 +72,7 @@ void Urho3DPlayer::Stop()
 void Urho3DPlayer::SubscribeToEvents()
 {
     // Subscribe HandleUpdate() function for processing update events
-    SubscribeToEvent(E_UPDATE, HANDLER(Urho3DPlayer, HandleUpdate));
+    //SubscribeToEvent(E_UPDATE, HANDLER(Urho3DPlayer, HandleUpdate));
 }
 
 void Urho3DPlayer::HandleUpdate(StringHash eventType, VariantMap& eventData)
@@ -81,9 +81,4 @@ void Urho3DPlayer::HandleUpdate(StringHash eventType, VariantMap& eventData)
 
 	timeStep_ = eventData[P_TIMESTEP].GetFloat();
 
-	for (int x = 0; x < appStates_.Size(); x++)
-	{
-		AppStateInterface* appState = appStates_[x];
-		appState->Loop(timeStep_);
-	}
 }
