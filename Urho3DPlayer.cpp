@@ -61,7 +61,7 @@ void Urho3DPlayer::Start()
 	input_ = GetSubsystem<Input>();
 	input_->SetMouseVisible(true);
 	input_->SetTouchEmulation(true);
-	logicStates_.Push(new Splash(this->context_, this));
+	logicStates_.Push(new Splash(context_, this));
 	SubscribeToEvents();
 }
 

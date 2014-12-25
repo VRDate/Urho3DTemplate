@@ -23,7 +23,6 @@
 #include "Viewport.h"
 
 #include "Splash.h"
-#include "Log.h"
 
 #include "DebugNew.h"
 
