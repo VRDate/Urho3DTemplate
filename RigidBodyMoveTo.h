@@ -13,7 +13,7 @@
 // All Urho3D classes reside in namespace Urho3D
 using namespace Urho3D;
 
-static const StringHash E_MOVETOCOMPLETE("MoveToComplete");
+static const StringHash E_RIGIDBODYMOVETOCOMPLETE("RigidBodyMoveToComplete");
 
 class RigidBodyMoveTo: public LogicComponent
 {

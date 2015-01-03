@@ -21,7 +21,7 @@ SceneObjectMoveTo::SceneObjectMoveTo(Context* context) :
 
 void SceneObjectMoveTo::OnMoveToComplete()
 {
-	SendEvent(E_MOVETOCOMPLETE);
+	SendEvent(E_SCENEOBJECTMOVETOCOMPLETE);
 }
 
 void SceneObjectMoveTo::MoveTo(Vector3 dest, float speed, bool stopOnCompletion)

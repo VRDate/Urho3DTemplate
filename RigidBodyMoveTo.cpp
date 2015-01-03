@@ -22,7 +22,7 @@ RigidBodyMoveTo::RigidBodyMoveTo(Context* context) :
 
 void RigidBodyMoveTo::OnMoveToComplete()
 {
-	SendEvent(E_MOVETOCOMPLETE);
+	SendEvent(E_RIGIDBODYMOVETOCOMPLETE);
 }
 
 void RigidBodyMoveTo::MoveTo(Vector3 dest, float speed, bool stopOnCompletion)
