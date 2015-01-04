@@ -16,7 +16,8 @@
 RigidBodyMoveTo::RigidBodyMoveTo(Context* context) :
 		LogicComponent(context)
 {
-	// Only the scene update event is needed: unsubscribe from the rest for optimization
+	isMoving_ = false;
+	// Only the physics update event is needed: unsubscribe from the rest for optimization
 	SetUpdateEventMask(USE_FIXEDUPDATE);
 }
 

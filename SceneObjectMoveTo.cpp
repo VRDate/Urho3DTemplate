@@ -15,6 +15,7 @@
 SceneObjectMoveTo::SceneObjectMoveTo(Context* context) :
 		LogicComponent(context)
 {
+	isMoving_ = false;
 	// Only the scene update event is needed: unsubscribe from the rest for optimization
 	SetUpdateEventMask(USE_UPDATE);
 }
